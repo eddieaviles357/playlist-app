@@ -77,11 +77,11 @@ def show_all_songs():
     return render_template("songs.html", songs=songs)
 
 
-# @app.route("/songs/<int:song_id>")
-# def show_song(song_id):
-#     """return a specific song"""
-
-#     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+@app.route("/songs/<int:song_id>")
+def show_song(song_id):
+    """return a specific song"""
+    song = Song.query.get_or_404(song_id)
+    return render_template('song.html', song=song)
 
 
 # @app.route("/songs/add", methods=["GET", "POST"])
