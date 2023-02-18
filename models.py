@@ -11,7 +11,7 @@ class Playlist(db.Model):
     name = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(50), nullable=False)
 
-    songs = db.relationship('Song', secondary='playlists_songs', backref='playlists')
+    user_songs = db.relationship('Song', secondary='playlists_songs', backref='playlists')
 
     def __repr__(self):
         return f'Playlist( id={self.id}, name={self.name}, description={self.description} )'
@@ -25,7 +25,7 @@ class Song(db.Model):
     title = db.Column(db.String(30), nullable=False)
     artist = db.Column(db.String(30), nullable=False)
 
-    playlists = db.relationship('Playlist', secondary='playlists_songs', backref='songs')
+    user_playlists = db.relationship('Playlist', secondary='playlists_songs', backref='songs')
 
     def __repr__(self):
         return f"Song( id={self.id}, title={self.title}, artist={self.artist} )"
