@@ -9,7 +9,7 @@ class Playlist(db.Model):
     __tablename__ = 'playlists'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(30), nullable=False)
-    description = db.Column(db.String(50), nulllable=False)
+    description = db.Column(db.String(50), nullable=False)
 
     songs = db.relationship('Song', secondary='playlists_songs', backref='playlists')
 
