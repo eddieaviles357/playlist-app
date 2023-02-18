@@ -42,11 +42,11 @@ def show_all_playlists():
     return render_template("playlists.html", playlists=play_lists)
 
 
-# @app.route("/playlists/<int:playlist_id>")
-# def show_playlist(playlist_id):
-#     """Show detail on specific playlist."""
-
-#     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+@app.route("/playlists/<int:playlist_id>")
+def show_playlist(playlist_id):
+    """Show detail on specific playlist."""
+    play_list = Playlist.query.get_or_404(playlist_id)
+    return render_template('playlist.html', playlist=play_list)
 
 
 # @app.route("/playlists/add", methods=["GET", "POST"])
