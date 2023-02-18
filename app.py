@@ -34,12 +34,12 @@ def root():
 # # Playlist routes
 
 
-# @app.route("/playlists")
-# def show_all_playlists():
-#     """Return a list of playlists."""
+@app.route("/playlists")
+def show_all_playlists():
+    """Return a list of playlists."""
 
-#     playlists = Playlist.query.all()
-#     return render_template("playlists.html", playlists=playlists)
+    play_lists = Playlist.query.all()
+    return render_template("playlists.html", playlists=play_lists)
 
 
 # @app.route("/playlists/<int:playlist_id>")
