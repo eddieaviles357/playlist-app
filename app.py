@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db, Playlist, Song, PlaylistSong
 # from forms import NewSongForPlaylistForm, SongForm, PlaylistForm
-from forms import PlaylistForm
+from forms import PlaylistForm, SongForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///playlist_app'
@@ -84,15 +84,19 @@ def show_song(song_id):
     return render_template('song.html', song=song)
 
 
-# @app.route("/songs/add", methods=["GET", "POST"])
-# def add_song():
-#     """Handle add-song form:
+@app.route("/songs/add", methods=["GET", "POST"])
+def add_song():
+    """Handle add-song form:
 
-#     - if form not filled out or invalid: show form
-#     - if valid: add playlist to SQLA and redirect to list-of-songs
-#     """
-
-#     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    - if form not filled out or invalid: show form
+    - if valid: add playlist to SQLA and redirect to list-of-songs
+    """
+    form = SongForm()
+    if form.validate_on_submit():
+        db.session.add(Song(title=form.data['title'], artist=form.data['artist']))
+        db.session.commit()
+        return redirect('/songs')
+    return render_template('new_song.html', form=form)
 
 
 # @app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
