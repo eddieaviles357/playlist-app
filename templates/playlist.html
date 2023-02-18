@@ -10,8 +10,11 @@
 </div>
 
 
-<div class="text-danger">
-  SHOW ALL OF THE SONGS IN THIS PLAYLIST HERE
+<div class="">
+  <div class="text-black">Title: </div>
+  {% for song in playlist.songs %}
+  <div class="text-danger pl-3">{{ song.title }}</div>
+  {% endfor %}
 </div>
 
 <p>
