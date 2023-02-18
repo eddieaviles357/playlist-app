@@ -69,12 +69,12 @@ def add_playlist():
 # # Song routes
 
 
-# @app.route("/songs")
-# def show_all_songs():
-#     """Show list of songs."""
+@app.route("/songs")
+def show_all_songs():
+    """Show list of songs."""
 
-#     songs = Song.query.all()
-#     return render_template("songs.html", songs=songs)
+    songs = Song.query.all()
+    return render_template("songs.html", songs=songs)
 
 
 # @app.route("/songs/<int:song_id>")
