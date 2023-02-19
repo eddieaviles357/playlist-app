@@ -2,8 +2,26 @@
 
 {% block content %}
 
-<h1>Add a song to {{ playlist.name }}</h1>
+<h1>Add a song to <a href="/playlists/{{playlist.id}}">{{ playlist.name }}</a></h1>
 
 <h1>Add a form that when submitted adds a song to this playlist!</h1>
+
+<form action="/playlists/{{playlist.id}}/add-song" method="POST">
+    {{ form.hidden_tag() }}
+
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="form-group mb-3 col-sm-6">
+    
+        {{ field.label(class_="form-label") }}
+        {{ field(class_="form-control text-black")}}
+        {% for err in field.errors %}
+            <small class="form-text text-danger">
+                {{ err }}
+            </small>    
+        {% endfor %}
+    </div>
+    {% endfor %}
+    <button class="btn btn-success">Submit</button>
+</form>
 
 {% endblock %}
