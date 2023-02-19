@@ -3,8 +3,7 @@ from flask import Flask, redirect, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db, Playlist, Song, PlaylistSong
-# from forms import NewSongForPlaylistForm, SongForm, PlaylistForm
-from forms import PlaylistForm, SongForm
+from forms import NewSongForPlaylistForm, SongForm, PlaylistForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///playlist_app'
@@ -99,28 +98,26 @@ def add_song():
     return render_template('new_song.html', form=form)
 
 
-# @app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
-# def add_song_to_playlist(playlist_id):
-#     """Add a playlist and redirect to list."""
+@app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
+def add_song_to_playlist(playlist_id):
+    """Add a playlist and redirect to list."""
 
-#     # BONUS - ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    # BONUS - ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
-#     # THE SOLUTION TO THIS IS IN A HINT IN THE ASSESSMENT INSTRUCTIONS
+    # THE SOLUTION TO THIS IS IN A HINT IN THE ASSESSMENT INSTRUCTIONS
 
-#     playlist = Playlist.query.get_or_404(playlist_id)
-#     form = NewSongForPlaylistForm()
+    playlist = Playlist.query.get_or_404(playlist_id)
+    form = NewSongForPlaylistForm()
 
-#     # Restrict form to songs not already on this playlist
+    # Restrict form to songs not already on this playlist
 
-#     curr_on_playlist = ...
-#     form.song.choices = ...
-
-#     if form.validate_on_submit():
-
-#           # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
-#           return redirect(f"/playlists/{playlist_id}")
-
-#     return render_template("add_song_to_playlist.html",
-#                              playlist=playlist,
-#                              form=form)
+    curr_on_playlist = [s.id for s in playlist.songs]
+    form.song.choices = [(int(song.id), song.title ) for song in db.session.query(Song.id, Song.title).filter(Song.id.notin_(curr_on_playlist)).all()]
+    if form.validate_on_submit():
+        # finish with code *************************************
+        # finish with code *************************************
+        # finish with code *************************************
+        return redirect(f"/playlists/{playlist_id}")
+    return render_template("add_song_to_playlist.html",
+                             playlist=playlist,
+                             form=form)
