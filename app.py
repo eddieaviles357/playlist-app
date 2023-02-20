@@ -51,11 +51,7 @@ def show_playlist(playlist_id):
 
 @app.route("/playlists/add", methods=["GET", "POST"])
 def add_playlist():
-    """Handle add-playlist form:
-
-    - if form not filled out or invalid: show form
-    - if valid: add playlist to SQLA and redirect to list-of-playlists
-    """
+    """Handle add-playlist form """
     form = PlaylistForm()
     if form.validate_on_submit():
         db.session.add(Playlist(name=form.data['name'], description=form.data['description']))
@@ -85,11 +81,7 @@ def show_song(song_id):
 
 @app.route("/songs/add", methods=["GET", "POST"])
 def add_song():
-    """Handle add-song form:
-
-    - if form not filled out or invalid: show form
-    - if valid: add playlist to SQLA and redirect to list-of-songs
-    """
+    """Handle add-song form  """
     form = SongForm()
     if form.validate_on_submit():
         db.session.add(Song(title=form.data['title'], artist=form.data['artist']))
@@ -102,15 +94,10 @@ def add_song():
 def add_song_to_playlist(playlist_id):
     """Add a playlist and redirect to list."""
 
-    # BONUS - ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
-    # THE SOLUTION TO THIS IS IN A HINT IN THE ASSESSMENT INSTRUCTIONS
-
     playlist = Playlist.query.get_or_404(playlist_id)
     form = NewSongForPlaylistForm()
 
     # Restrict form to songs not already on this playlist
-
     curr_on_playlist = [s.id for s in playlist.songs]
     # dynamically add form choices
     form.song.choices = [(int(song.id), song.title ) for song in db.session.query(Song.id, Song.title).filter(Song.id.notin_(curr_on_playlist)).all()]
