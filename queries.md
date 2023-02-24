@@ -60,7 +60,7 @@ Using the `movies_db` database, write the correct SQL queries for each of these 
     of movies they have been in, in descending order by the number of movies. (Similar to #9, make sure
     that two different actors with the same name are considered separately).
     ```sql
-    SELECT first_name, last_name, COUNT(*) FROM roles r JOIN movies m ON r.movie*id = m.id JOIN stars s ON r.star_id = s.id GROUP BY first_name, last_name ORDER BY COUNT(*) DESC;
+    SELECT first_name, last_name, COUNT(*) FROM roles r JOIN movies m ON r.movie_id = m.id JOIN stars s ON r.star_id = s.id GROUP BY first_name, last_name ORDER BY COUNT(*) DESC;
     ```
 
 ### The rest of these are bonuses
